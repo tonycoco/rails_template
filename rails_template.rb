@@ -18,7 +18,7 @@ gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :git => 'git://github.com/anjlab/bootstrap-rails.git'
 gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git'
-gem 'bootstrap_kaminari', :git => 'git://github.com/dleavitt/bootstrap_kaminari.git'
+gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
 gem 'mini_magick'
 gem 'settingslogic'
 
@@ -119,7 +119,6 @@ RUBY
 end
 
 inject_into_file 'spec/spec_helper.rb', :before => 'end' do <<-RUBY
-\n
   require 'database_cleaner'
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -162,7 +161,7 @@ end
 #####################################################
 generate(:controller, 'welcome')
 
-inject_into_file 'app/controller/welcome_controller.rb', :before => 'end' do <<-RUBY
+inject_into_file 'app/controllers/welcome_controller.rb', :before => 'end' do <<-RUBY
   before_filter :authenticate_user!
 RUBY
 end
