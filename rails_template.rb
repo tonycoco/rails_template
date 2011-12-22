@@ -1,10 +1,12 @@
+#####################################################
 # Application Generator Template
-# Usage: rails new APP_NAME -T -m https://github.com/tonycoco/rails_template/raw/master/rails_template.rb
+# Usage: rails new APP_NAME -T -m https://raw.github.com/tonycoco/rails_template/master/rails_template.rb
 #
 # If you are customizing this template, you can use any methods provided by Thor::Actions
 # http://rubydoc.info/github/wycats/thor/master/Thor/Actions
 # and Rails::Generators::Actions
 # http://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb
+#####################################################
 
 #####################################################
 # Gems
