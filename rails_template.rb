@@ -82,7 +82,7 @@ end
 gsub_file 'config/locales/en.yml', /hello: "Hello world"/ do <<-YAML
   application:
     name: "Your Application"
-    tagline: "Something witty here."
+    slogan: "Something witty here."
   alert_message:
     default: "Heads up!"
     alert: "Oh snap!"
