@@ -148,7 +148,7 @@ gsub_file 'config/application.rb', /:password/, ':password, :password_confirmati
 generate 'devise user'
 
 inside 'app/views/devise' do
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmation/new.html.haml', 'confirmation/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
