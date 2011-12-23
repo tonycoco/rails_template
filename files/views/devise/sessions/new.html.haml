@@ -2,7 +2,7 @@
   .content
     .row
       .span16
-        = alert_block_for(resource.errors)
+        = alert_message_for(flash)
         = twitter_bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
           = f.inputs 'Sign in', :class => 'sign-in' do
             = f.email_field :email, :placeholder => 'me@example.com'
