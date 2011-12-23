@@ -1,6 +1,6 @@
 #####################################################
 # Application Generator Template
-# Usage: rails new APP_NAME -T -m https://raw.github.com/tonycoco/rails_template/master/rails_template.rb
+# Usage: rails new APP_NAME -d mysql -T -m https://raw.github.com/tonycoco/rails_template/master/rails_template.rb
 #
 # If you are customizing this template, you can use any methods provided by Thor::Actions
 # http://rubydoc.info/github/wycats/thor/master/Thor/Actions
@@ -140,6 +140,12 @@ end
 generate 'cucumber:install --capybara --rspec'
 
 #####################################################
+# Carrierwave
+#####################################################
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
+
+#####################################################
 # Devise
 #####################################################
 generate 'devise:install'
@@ -149,8 +155,8 @@ generate 'migration', 'AddExtrasToUsers admin:boolean avatar:string data:binary'
 gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
-gsub_file 'config/routes.rb', /devise_for :users/, do <<-RUBY
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
+gsub_file 'config/routes.rb', /  devise_for :users/, do <<-RUBY
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' } do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 RUBY
@@ -182,8 +188,8 @@ inject_into_file 'app/models/user.rb', :before => 'end' do <<-RUBY
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
-        user.email = data["email"]
+      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['user_hash']
+        user.email = data['email']
       end
     end
   end
@@ -223,7 +229,7 @@ inject_into_file 'app/controllers/welcome_controller.rb', :before => 'end' do <<
 RUBY
 end
 
-route "root :to => 'welcome'"
+route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
 
 #####################################################
@@ -241,9 +247,3 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/i
 #####################################################
 gsub_file 'public/robots.txt', /# User-Agent/, 'User-Agent'
 gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
-
-#####################################################
-# Carrierwave
-#####################################################
-get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
