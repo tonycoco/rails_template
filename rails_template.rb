@@ -95,15 +95,15 @@ remove_file 'app/views/layouts/application.html.erb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
 
-gsub_file 'app/assets/stylesheets/application.css', / *= require_tree ./ do <<-SCSS
- *= require_tree .
+gsub_file 'app/assets/stylesheets/application.css', / \*= require_tree ./ do <<-SCSS
  *= require bootstrap
+ *= require_tree .
 SCSS
 end
 
-gsub_file 'app/assets/javascripts/application.js', /\/\/= require jquery_ujs/ do <<-JS
-//= require jquery_ujs
+gsub_file 'app/assets/javascripts/application.js', /\/\/= require_tree ./ do <<-JS
 //= require bootstrap
+//= require_tree .
 JS
 end
 
