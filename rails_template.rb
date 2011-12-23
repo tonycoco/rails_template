@@ -114,7 +114,6 @@ application do <<-RUBY
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
     end
-
 RUBY
 end
 
@@ -146,6 +145,52 @@ generate 'cucumber:install --capybara --rspec'
 generate 'devise:install'
 gsub_file 'config/application.rb', /:password/, ':password, :password_confirmation'
 generate 'devise user'
+generate 'migration', 'AddExtrasToUsers admin:boolean avatar:string data:binary'
+gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
+gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
+
+gsub_file 'config/routes.rb', /devise_for :users/, do <<-RUBY
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
+RUBY
+end
+
+inject_into_file 'config/initializers/devise.rb', :before => 'end' do <<-RUBY
+  user_permissions     = %w(user_about_me user_activities user_birthday user_checkins user_education_history user_events user_groups user_hometown user_interests user_likes user_location user_notes user_online_presence user_photo_video_tags user_photos user_questions user_relationships user_relationship_details user_religion_politics user_status user_videos user_website user_work_history email)
+  friends_permissions  = %w(friends_about_me friends_activities friends_birthday friends_checkins friends_education_history friends_events friends_groups friends_hometown friends_interests friends_likes friends_location friends_notes friends_online_presence friends_photo_video_tags friends_photos friends_questions friends_relationships friends_relationship_details friends_religion_politics friends_status friends_videos friends_website friends_work_history)
+  extended_permissions = %w(read_friendlists read_insights read_mailbox read_requests read_stream xmpp_login ads_management create_event manage_friendlists manage_notifications offline_access publish_checkins publish_stream rsvp_event sms publish_actions)
+
+  config.omniauth :facebook, Settings.facebook.app_id, Settings.facebook.app_secret, :scope => (user_permissions + friends_permissions + extended_permissions).join(',')
+RUBY
+end
+
+inject_into_file 'app/models/user.rb', :before => 'end' do <<-RUBY
+  serialize :data
+
+  mount_uploader :avatar, AvatarUploader
+
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = access_token.extra.raw_info
+
+    if user = User.where(:email => data.email).first
+      user
+    else # Create a user with a stub password.
+      User.create!(:email => data.email, :password => Devise.friendly_token[0, 20], :remote_avatar_url => data.image, :data => data)
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
+        user.email = data["email"]
+      end
+    end
+  end
+RUBY
+end
+
+get 'https://raw.github.com/tonycoco/rails_template/master/files/devise/omniauth_callbacks_controller.rb', 'app/controllers/users/omniauth_callbacks_controller.rb'
 
 inside 'app/views/devise' do
   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
@@ -202,5 +247,3 @@ gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 #####################################################
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
-
-# TODO: Facebook Omniauth integration

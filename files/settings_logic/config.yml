@@ -1,4 +1,7 @@
 defaults: &defaults
+  facebook:
+    app_id: "CHANGE_ME"
+    app_secret: "CHANGE_ME"
 
 development:
   <<: *defaults
