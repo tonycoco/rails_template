@@ -43,7 +43,7 @@ module BootstrapHelper
       keys.each do |key|
         next if flash[key].blank?
 
-        message = content_tag(:p, content_tag(:strong, "#{alert_heading_for(key))} #{flash[key]}")
+        message = content_tag(:p, "#{content_tag(:strong, alert_heading_for(key))} #{flash[key]}")
         close_button = link_to('&times;'.html_safe, '#', :class => 'close')
 
         content_tag(:div, "#{close_button}#{message}".html_safe, :class => "alert-message #{alert_css_class_for(key)}", :'data-alert' => 'alert')
@@ -54,7 +54,7 @@ module BootstrapHelper
   def alert_block_for(errors, type='error', options={})
     return '' if errors.empty?
 
-    message = content_tag(:p, content_tag(:strong, "#{alert_heading_for(type))} #{pluralize(errors.count, 'error')} prevented this from being saved.")
+    message = content_tag(:p, "#{content_tag(:strong, alert_heading_for(type))} #{pluralize(errors.count, 'error')} prevented this from being saved.")
     errors_list = content_tag(:ul, errors.full_messages.map { |msg| content_tag(:li, msg) }.join)
     close_button = link_to('&times;'.html_safe, '#', :class => 'close')
 

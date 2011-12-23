@@ -77,7 +77,7 @@ end
 #####################################################
 # Locales
 #####################################################
-gsub_file 'config/locales/en.yml', /hello: "Hello world"/ do <<-YAML
+gsub_file 'config/locales/en.yml', /  hello: "Hello world"/ do <<-YAML
   application:
     name: "Your Application"
     slogan: "Something witty here."
@@ -94,6 +94,18 @@ end
 remove_file 'app/views/layouts/application.html.erb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
+
+gsub_file 'app/assets/stylesheets/application.css', / *= require_tree ./ do <<-SCSS
+ *= require_tree .
+ *= require bootstrap
+SCSS
+end
+
+gsub_file '', /\/\/= require jquery_ujs/ do <<-JS
+//= require jquery_ujs
+//= require bootstrap
+JS
+end
 
 #####################################################
 # Heroku
