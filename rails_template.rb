@@ -101,7 +101,7 @@ gsub_file 'app/assets/stylesheets/application.css', / *= require_tree ./ do <<-S
 SCSS
 end
 
-gsub_file '', /\/\/= require jquery_ujs/ do <<-JS
+gsub_file 'app/assets/javascripts/application.js', /\/\/= require jquery_ujs/ do <<-JS
 //= require jquery_ujs
 //= require bootstrap
 JS
