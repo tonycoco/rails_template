@@ -1,0 +1,13 @@
+.container
+  .content
+    .row
+      .span16
+        = alert_block_for(resource.errors)
+        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+          = f.inputs 'Sign up', :class => 'sign-up' do
+            = f.email_field :email, :placeholder => 'me@example.com'
+            = f.password_field :password
+            = f.password_field :password_confirmation
+            = f.actions do
+              = f.submit 'Sign up'
+          = render :partial => 'devise/shared/links'

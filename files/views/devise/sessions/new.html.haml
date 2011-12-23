@@ -1,0 +1,15 @@
+.container
+  .content
+    .row
+      .span16
+        = alert_block_for(resource.errors)
+        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          = f.inputs 'Sign in', :class => 'sign-in' do
+            = f.email_field :email, :placeholder => 'me@example.com'
+            = f.password_field :password
+            - if devise_mapping.rememberable?
+              = f.toggles do
+                = f.check_box :remember_me, 'Remember?'
+          = f.actions do
+            = f.submit 'Sign in'
+        = render :partial => 'devise/shared/links'

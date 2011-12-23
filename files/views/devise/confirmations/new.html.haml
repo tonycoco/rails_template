@@ -1,0 +1,11 @@
+.container
+  .content
+    .row
+      .span16
+        = alert_block_for(resource.errors)
+        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+          = f.inputs 'Resend confirmation instructions', :class => 'resend-confirmation' do
+            = f.email_field :email
+          = f.actions do
+            = f.submit 'Resend confirmation instructions'
+        = render :partial => 'devise/shared/links'

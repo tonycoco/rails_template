@@ -26,8 +26,6 @@ gem 'settingslogic'
 
 gem_group :development do
   gem 'capistrano'
-  gem 'hpricot'
-  gem 'ruby_parser'
   gem 'rails-footnotes'
   gem 'looksee'
   gem 'wirble'
@@ -148,8 +146,20 @@ generate 'cucumber:install --capybara --rspec'
 generate 'devise:install'
 gsub_file 'config/application.rb', /:password/, ':password, :password_confirmation'
 generate 'devise user'
-run 'rails generate devise:views'
-run 'for i in `find app/views/devise -name *.erb` ; do bundle exec html2haml -e $i ${i%erb}haml ; rm $i ; done'
+
+inside 'app/views/devise' do
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmation/new.html.haml', 'confirmation/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/edit.html.haml', 'passwords/edit.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/new.html.haml', 'passwords/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/edit.html.haml', 'registrations/edit.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/new.html.haml', 'registrations/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/sessions/new.html.haml', 'sessions/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/shared/_links.html.haml', 'shared/_links.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/unlocks/new.html.haml', 'unlocks/new.html.haml'
+end
 
 create_file 'spec/support/devise.rb' do <<-RUBY
 RSpec.configure do |config|
@@ -187,6 +197,10 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/i
 gsub_file 'public/robots.txt', /# User-Agent/, 'User-Agent'
 gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 
-# TODO: Add avatar to User via Carrierwave
-# TODO: Fix Devise's views
+#####################################################
+# Carrierwave
+#####################################################
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
+
 # TODO: Facebook Omniauth integration

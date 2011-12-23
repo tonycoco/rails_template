@@ -1,0 +1,11 @@
+.container
+  .content
+    .row
+      .span16
+        = alert_block_for(resource.errors)
+        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+          = f.inputs 'Forgot your password?', :class => 'forgot-password' do
+            = f.email_field :email
+          = f.actions do
+            = f.submit 'Send me reset password instructions'
+        = render :partial => 'devise/shared/links'
