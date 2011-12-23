@@ -12,40 +12,52 @@ module BootstrapHelper
     c
   end
 
-  def alert_message_css_class_for(key)
+  def alert_css_class_for(key)
     case key.to_sym
     when :alert
-      return 'error'
+      'error'
     when :notice
-      return 'success'
+      'success'
     else
-      return key.to_s
+      key.to_s
     end
   end
 
-  def alert_message_heading_for(key)
+  def alert_heading_for(key)
     case key.to_sym
     when :alert
-      return I18n.t('alert_message.alert')
+      I18n.t('alert_message.alert')
     when :notice
-      return I18n.t('alert_message.notice')
+      I18n.t('alert_message.notice')
     else
-      return I18n.t('alert_message.default')
+      I18n.t('alert_message.default')
     end
   end
 
   def alert_message_for(flash, options={})
-    except = options[:except]
-    keys = flash.keys.select { |key| !key.match(except) } rescue []
+    return '' if flash.blank?
 
-    unless keys.blank?
+    keys = flash.keys.select { |key| !key.match(options[:except]) } rescue []
+
+    if keys.blank?
       keys.each do |key|
         next if flash[key].blank?
 
-        flash_text = content_tag(:p, content_tag(:strong, alert_message_heading_for(key)) + ' ' + flash[key])
+        message = content_tag(:p, content_tag(:strong, "#{alert_heading_for(key))} #{flash[key]}")
         close_button = link_to('&times;'.html_safe, '#', :class => 'close')
-        return content_tag(:div, (close_button + flash_text).html_safe, :class => "alert-message #{alert_message_css_class_for(key)}", :'data-alert' => 'alert')
+
+        content_tag(:div, "#{close_button}#{message}".html_safe, :class => "alert-message #{alert_css_class_for(key)}", :'data-alert' => 'alert')
       end
     end
+  end
+
+  def alert_block_for(errors, type='error', options={})
+    return '' if errors.empty?
+
+    message = content_tag(:p, content_tag(:strong, "#{alert_heading_for(type))} #{pluralize(errors.count, 'error')} prevented this from being saved.")
+    errors_list = content_tag(:ul, errors.full_messages.map { |msg| content_tag(:li, msg) }.join)
+    close_button = link_to('&times;'.html_safe, '#', :class => 'close')
+
+    content_tag(:div, "#{close_button}#{message}#{errors_list}".html_safe, :class => "alert-message block-message #{css_class_for(type)}", :'data-alert' => 'alert')
   end
 end
