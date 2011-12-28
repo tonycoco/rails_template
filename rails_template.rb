@@ -284,8 +284,6 @@ gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 # Git
 #####################################################
 append_file '.gitignore' do <<-GIT
-/config/application.yml
-/config/database.yml
 /public/system
 /coverage
 rerun.txt
