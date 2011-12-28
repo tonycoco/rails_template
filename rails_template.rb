@@ -1,3 +1,5 @@
+require 'active_support/core_ext/array/wrap'
+
 #####################################################
 # Application Generator Template
 # Usage: rails new APP_NAME -d mysql -T -m https://raw.github.com/tonycoco/rails_template/master/rails_template.rb
@@ -185,7 +187,7 @@ generate 'migration', 'AddExtrasToUsers admin:boolean avatar:string data:binary'
 gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
-gsub_file 'config/routes.rb', /  devise_for :users/, do <<-RUBY
+gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' } do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
