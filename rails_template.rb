@@ -279,3 +279,22 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/i
 #####################################################
 gsub_file 'public/robots.txt', /# User-Agent/, 'User-Agent'
 gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
+
+#####################################################
+# Git
+#####################################################
+inject_into_file '.gitignore' do <<-GIT
+/config/application.yml
+/config/database.yml
+/public/system
+/coverage
+rerun.txt
+.rspec
+capybara-*.html
+.DS_Store
+GIT
+end
+
+git :init
+git :add => '.'
+git :commit => "-aqm 'initial commit'"
