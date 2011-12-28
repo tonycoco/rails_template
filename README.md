@@ -1,9 +1,9 @@
 # Rails Template
-This is a simple Ruby on Rails template to get you going with Devise/RSpec/Cucumber/HAML and the Twitter Bootstrap.
+This is a simple Ruby on Rails template to get you going with Devise/RSpec/Cucumber/HAML and the Twitter Bootstrap. It provides some useful defaults, helpers and sets you up for a quick Heroku deployment as well.
 
 ## Useage
 ```
-rails new APP_NAME -T -m https://github.com/tonycoco/rails_template/raw/master/rails_template.rb
+rails new APP_NAME -T -d mysql -m https://github.com/tonycoco/rails_template/raw/master/rails_template.rb
 ```
 
 ## Customization

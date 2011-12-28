@@ -34,6 +34,13 @@ gem_group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
+gem_group :development, :test do
+  gem 'rspec-rails'
+  gem 'rspec-rails'
+  gem 'syntax'
+  gem 'mysql2'
+end
+
 gem_group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
@@ -41,11 +48,8 @@ gem_group :test do
   gem 'factory_girl_rails'
 end
 
-gem_group :development, :test do
-  gem 'rspec-rails'
-  gem 'rspec-rails'
-  gem 'syntax'
-  gem 'mysql2'
+gem_group :test, :production do
+  gem 'lumberjack'
 end
 
 gem_group :production do
@@ -57,6 +61,12 @@ end
 # Bundle
 #####################################################
 run 'bundle install'
+
+#####################################################
+# Lumberjack
+#####################################################
+environment 'config.logger = Lumberjack::Logger.new(Lumberjack::Device::Null)', {:env => 'test'}
+environment 'config.logger = Lumberjack::Logger.new', {:env => 'production'} # Heroku will log from STDOUT
 
 #####################################################
 # SettingsLogic
@@ -127,7 +137,7 @@ generate 'rspec:install'
 run 'rm -rf test'
 
 application do <<-RUBY
-    config.generators do |g|
+config.generators do |g|
       g.view_specs false
       g.helper_specs false
       g.template_engine :haml
