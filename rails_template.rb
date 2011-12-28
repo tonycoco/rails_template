@@ -48,9 +48,6 @@ gem_group :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
-end
-
-gem_group :test, :production do
   gem 'lumberjack'
 end
 
@@ -68,7 +65,6 @@ run 'bundle install'
 # Lumberjack
 #####################################################
 environment 'config.logger = Lumberjack::Logger.new(Lumberjack::Device::Null)', {:env => 'test'}
-environment 'config.logger = Lumberjack::Logger.new', {:env => 'production'} # Heroku will log from STDOUT
 
 #####################################################
 # SettingsLogic
