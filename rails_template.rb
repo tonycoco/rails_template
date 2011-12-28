@@ -283,7 +283,7 @@ gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 #####################################################
 # Git
 #####################################################
-inject_into_file '.gitignore' do <<-GIT
+append_file '.gitignore' do <<-GIT
 /config/application.yml
 /config/database.yml
 /public/system
