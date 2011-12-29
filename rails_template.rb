@@ -48,7 +48,6 @@ gem_group :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'lumberjack'
 end
 
 gem_group :production do
@@ -60,11 +59,6 @@ end
 # Bundle
 #####################################################
 run 'bundle install'
-
-#####################################################
-# Lumberjack
-#####################################################
-environment 'config.logger = Lumberjack::Logger.new(Lumberjack::Device::Null)', {:env => 'test'}
 
 #####################################################
 # SettingsLogic
