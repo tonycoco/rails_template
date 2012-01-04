@@ -285,8 +285,8 @@ capybara-*.html
 GIT
 end
 
+rake "db:migrate"
+
 git :init
 git :add => '.'
 git :commit => "-aqm 'initial commit'"
-
-rake "db:migrate"
