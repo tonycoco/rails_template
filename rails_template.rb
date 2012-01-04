@@ -98,20 +98,8 @@ end
 remove_file 'app/views/layouts/application.html.erb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
-
-gsub_file 'app/assets/stylesheets/application.css', /.*/ do <<-SCSS
-/*
- *= require bootstrap
- *= require_self
- *= require_tree .
-*/
-
-body {
-  padding-top: 40px;
-  margin-top: 20px;
-}
-SCSS
-end
+remove_file 'app/assets/stylesheets/application.css'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/application.css', 'app/assets/stylesheets/application.css'
 
 gsub_file 'app/assets/javascripts/application.js', /\/\/= require_tree ./ do <<-JS
 //= require bootstrap
