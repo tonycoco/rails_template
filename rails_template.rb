@@ -59,6 +59,8 @@ end
 # Bundle
 #####################################################
 run 'bundle install'
+rake "db:create"
+rake "db:migrate"
 
 #####################################################
 # SettingsLogic
@@ -286,3 +288,5 @@ end
 git :init
 git :add => '.'
 git :commit => "-aqm 'initial commit'"
+
+rake "db:migrate"
