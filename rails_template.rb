@@ -265,6 +265,7 @@ gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 #####################################################
 append_file '.gitignore' do <<-GIT
 /public/system
+/public/uploads
 /coverage
 rerun.txt
 .rspec
