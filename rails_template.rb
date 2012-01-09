@@ -25,6 +25,7 @@ gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_boot
 gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
 gem 'mini_magick'
 gem 'settingslogic'
+gem 'fog'
 
 gem_group :development do
   gem 'capistrano'
@@ -83,8 +84,8 @@ end
 #####################################################
 gsub_file 'config/locales/en.yml', /  hello: "Hello world"/ do <<-YAML
   application:
-    name: "Your Application"
-    slogan: "Something witty here."
+    name: "CHANGEME"
+    slogan: "CHANGEME"
   alert_message:
     default: "Heads up!"
     alert: "Oh snap!"
@@ -156,6 +157,7 @@ generate 'cucumber:install --capybara --rspec'
 #####################################################
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/initializer.rb', 'config/initializers/carrierwave.rb'
 
 #####################################################
 # Devise
@@ -174,7 +176,7 @@ gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
 RUBY
 end
 
-inject_into_file 'config/initializers/devise.rb', :after => 'Devise.setup do |config|' do <<-RUBY
+inject_into_file 'config/initializers/devise.rb', :after => "Devise.setup do |config|\n" do <<-RUBY
   user_permissions     = %w(user_about_me user_activities user_birthday user_checkins user_education_history user_events user_groups user_hometown user_interests user_likes user_location user_notes user_online_presence user_photo_video_tags user_photos user_questions user_relationships user_relationship_details user_religion_politics user_status user_videos user_website user_work_history email)
   friends_permissions  = %w(friends_about_me friends_activities friends_birthday friends_checkins friends_education_history friends_events friends_groups friends_hometown friends_interests friends_likes friends_location friends_notes friends_online_presence friends_photo_video_tags friends_photos friends_questions friends_relationships friends_relationship_details friends_religion_politics friends_status friends_videos friends_website friends_work_history)
   extended_permissions = %w(read_friendlists read_insights read_mailbox read_requests read_stream xmpp_login ads_management create_event manage_friendlists manage_notifications offline_access publish_checkins publish_stream rsvp_event sms publish_actions)
@@ -182,6 +184,8 @@ inject_into_file 'config/initializers/devise.rb', :after => 'Devise.setup do |co
   config.omniauth :facebook, Settings.facebook.app_id, Settings.facebook.app_secret, :scope => (user_permissions + friends_permissions + extended_permissions).join(',')
 RUBY
 end
+
+gsub_file 'config/initializers/devise.rb', /please-change-me-at-config-initializers-devise@example.com/, "CHANGEME@example.com"
 
 inject_into_file 'app/models/user.rb', :before => 'end' do <<-RUBY
   serialize :data
