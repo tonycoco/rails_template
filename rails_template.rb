@@ -275,6 +275,8 @@ rerun.txt
 .rspec
 capybara-*.html
 .DS_Store
+.rbenv-vars
+.rbenv-version
 GIT
 end
 
