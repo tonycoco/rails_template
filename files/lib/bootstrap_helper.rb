@@ -26,11 +26,11 @@ module BootstrapHelper
   def alert_heading_for(key)
     case key.to_sym
     when :alert
-      I18n.t('alert_message.alert')
+      t('alert_message.alert')
     when :notice
-      I18n.t('alert_message.notice')
+      t('alert_message.notice')
     else
-      I18n.t('alert_message.default')
+      t('alert_message.default')
     end
   end
 

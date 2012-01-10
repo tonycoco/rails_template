@@ -7,7 +7,7 @@ rails new APP_NAME -T -d mysql -m https://github.com/tonycoco/rails_template/raw
 ```
 
 ## Customization
-Look for all instances of the string "CHANGE_ME" in the generated application and make sure you have the following setup on your system...
+Look for all instances of the string "CHANGEME" in the generated application and make sure you have the following setup on your system...
 
 ```
 ENV['FACEBOOK_APP_ID']

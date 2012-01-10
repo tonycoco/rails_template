@@ -3,7 +3,7 @@
   %head
     %meta{:charset => 'utf-8'}
 
-    %title= yield_for :title, "#{I18n.t('application.slogan')} - #{I18n.t('application.name')}"
+    %title= yield_for :title, "#{t('application.slogan')} - #{t('application.name')}"
 
     = stylesheet_link_tag :application
     = javascript_include_tag :application
