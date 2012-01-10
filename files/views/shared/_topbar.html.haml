@@ -1,7 +1,7 @@
 .topbar
   .fill
     .container
-      = link_to I18n.t('application.name'), root_path, :class => 'brand'
+      = link_to t('application.name'), root_path, :class => 'brand'
 
       %ul.nav.secondary-nav.user-actions
         - if user_signed_in?
