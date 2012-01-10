@@ -26,15 +26,19 @@ gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.
 gem 'mini_magick'
 gem 'settingslogic'
 gem 'fog'
+gem 'resque'
 
 gem_group :development do
+  gem 'foreman'
   gem 'capistrano'
   gem 'rails-footnotes'
   gem 'looksee'
   gem 'wirble'
   gem 'awesome_print'
+  gem 'method_source'
   gem 'what_methods'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'taps'
 end
 
 gem_group :development, :test do
@@ -170,7 +174,7 @@ gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
 gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
-  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' } do
+  devise_for :users, :controllers => { :omniauth_callbacks => '/users/omniauth_callbacks' } do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 RUBY
@@ -247,6 +251,13 @@ end
 
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
+
+#####################################################
+# Redis
+#####################################################
+route "mount Resque::Server.new, :at => '/resque'"
+# TODO: Add Resque require to Rakefile
+# TODO: Add rake task file
 
 #####################################################
 # Clean-up
