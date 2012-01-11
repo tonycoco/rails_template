@@ -26,7 +26,7 @@ gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.
 gem 'mini_magick'
 gem 'settingslogic'
 gem 'fog'
-gem 'resque'
+gem 'resque', :require => 'resque/server'
 
 gem_group :development do
   gem 'foreman'
@@ -174,8 +174,8 @@ gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
 gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
-  devise_for :users, :controllers => { :omniauth_callbacks => '/users/omniauth_callbacks' } do
-    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' } do
+    get 'users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 RUBY
 end
@@ -256,8 +256,15 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/i
 # Redis
 #####################################################
 route "mount Resque::Server.new, :at => '/resque'"
-# TODO: Add Resque require to Rakefile
-# TODO: Add rake task file
+get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/task.rake', 'lib/tasks/resque.rb'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/initializer.rb', 'config/initializers/resque.rb'
+
+inject_into_file 'Rakefile', do <<-RUBY
+require 'resque/tasks'
+RUBY
+end
+
+# TODO: Add intializer and rake task file for Heroku
 
 #####################################################
 # Clean-up
