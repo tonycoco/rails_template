@@ -259,11 +259,6 @@ route "mount Resque::Server.new, :at => '/resque'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/task.rake', 'lib/tasks/resque.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/initializer.rb', 'config/initializers/resque.rb'
 
-inject_into_file 'Rakefile', do <<-RUBY
-require 'resque/tasks'
-RUBY
-end
-
 # TODO: Add intializer and rake task file for Heroku
 
 #####################################################
