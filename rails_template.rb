@@ -104,14 +104,9 @@ end
 remove_file 'app/views/layouts/application.html.erb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
-remove_file 'app/assets/stylesheets/application.css'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/application.css', 'app/assets/stylesheets/application.css'
-
-gsub_file 'app/assets/javascripts/application.js', /\/\/= require_tree ./ do <<-JS
-//= require bootstrap
-//= require_tree .
-JS
-end
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/bootstrap.js', 'app/assets/javascripts/bootstrap.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/bootstrap.css.scss', 'app/assets/stylesheets/bootstrap.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
 
 #####################################################
 # Heroku
@@ -163,6 +158,7 @@ generate 'cucumber:install --capybara --rspec'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar_uploader.rb', 'app/uploaders/avatar_uploader.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/initializer.rb', 'config/initializers/carrierwave.rb'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/aws.rake', 'lib/tasks/aws.rake'
 
 #####################################################
 # Devise
@@ -259,8 +255,6 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/i
 route "mount Resque::Server.new, :at => '/resque'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/task.rake', 'lib/tasks/resque.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/initializer.rb', 'config/initializers/resque.rb'
-
-# TODO: Add intializer and rake task file for Heroku
 
 #####################################################
 # Clean-up
