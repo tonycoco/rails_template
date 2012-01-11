@@ -6,8 +6,8 @@ namespace :aws do
     raise 'Production environment not allowed!' if Rails.env.production? || args.destination == 'production'
 
     fog = Fog::Storage.new :provider => 'AWS', :aws_access_key_id => Settings.aws.access_key_id, :aws_secret_access_key => Settings.aws.secret_access_key
-    src_bucket = "#{Settings.aws.bucket_name}.#{args.source}"
-    dst_bucket = "#{Settings.aws.bucket_name}.#{args.destination}"
+    src_bucket = "#{Settings.aws.bucket_name}-#{args.source}"
+    dst_bucket = "#{Settings.aws.bucket_name}-#{args.destination}"
 
     puts "Copying items from \"#{src_bucket}\" to \"#{dst_bucket}\"..."
 
