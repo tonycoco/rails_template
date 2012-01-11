@@ -108,6 +108,14 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascri
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/bootstrap.css.scss', 'app/assets/stylesheets/bootstrap.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
 
+append_file 'app/assets/stylesheets/application.css' do <<-CSS
+body {
+  padding-top: 40px;
+  margin-top: 20px;
+}
+CSS
+end
+
 #####################################################
 # Heroku
 #####################################################
