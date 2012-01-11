@@ -13,45 +13,46 @@ require 'active_support/core_ext/array/wrap'
 #####################################################
 # Gems
 #####################################################
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :git => 'git://github.com/anjlab/bootstrap-rails.git'
+gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
+gem 'carrierwave'
+gem 'devise'
+gem 'fog'
 gem 'haml-rails'
 gem 'kaminari'
+gem 'mini_magick'
 gem 'omniauth'
-gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'carrierwave'
-gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :git => 'git://github.com/anjlab/bootstrap-rails.git'
-gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git'
-gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
-gem 'mini_magick'
-gem 'settingslogic'
-gem 'fog'
 gem 'resque', :require => 'resque/server'
+gem 'settingslogic'
+gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git'
 
 gem_group :development do
-  gem 'foreman'
   gem 'capistrano'
+  gem 'foreman'
   gem 'rails-footnotes'
-  gem 'looksee'
-  gem 'wirble'
-  gem 'awesome_print'
-  gem 'method_source'
-  gem 'what_methods'
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'taps'
+
+  # For IRB
+  gem 'added_methods'
+  gem 'awesome_print'
+  gem 'brice'
+  gem 'looksee'
+  gem 'what_methods'
 end
 
 gem_group :development, :test do
-  gem 'rspec-rails'
+  gem 'mysql2'
   gem 'rspec-rails'
   gem 'syntax'
-  gem 'mysql2'
 end
 
 gem_group :test do
-  gem 'database_cleaner'
-  gem 'cucumber-rails'
   gem 'capybara'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
 
