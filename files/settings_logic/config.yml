@@ -1,10 +1,10 @@
 defaults: &defaults
   facebook:
-    app_id: ENV['FACEBOOK_APP_ID']
-    app_secret: ENV['FACEBOOK_APP_SECRET']
+    app_id: <%= ENV['FACEBOOK_APP_ID'] %>
+    app_secret: <%= ENV['FACEBOOK_APP_SECRET'] %>
   aws:
-    access_key_id: ENV['AWS_ACCESS_KEY_ID']
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+    secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
     bucket_name: CHANGEME
 
 development:

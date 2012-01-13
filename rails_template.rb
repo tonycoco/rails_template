@@ -109,14 +109,6 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/styleshe
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/overrides.css.scss', 'app/assets/stylesheets/overrides.css.scss'
 
-append_file 'app/assets/stylesheets/application.css' do <<-CSS
-body {
-  padding-top: 40px;
-  margin-top: 20px;
-}
-CSS
-end
-
 #####################################################
 # Heroku
 #####################################################

@@ -5,7 +5,7 @@
         = alert_block_for(resource.errors)
         = twitter_bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
           = f.inputs "Edit #{resource_name.to_s.humanize}", :class => 'edit' do
-            = f.file_field :avatar, image_tag(current_user.avatar.url, :size => '50x50') do
+            = f.file_field :avatar, image_tag(current_user.avatar.url, :size => '50x50', :alt => 'Current avatar') do
               = f.toggles do
                 = f.check_box :remove_avatar, 'Remove avatar'
             = f.hidden_field :avatar_cache

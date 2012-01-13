@@ -8,3 +8,45 @@
 @import 'forms';
 @import 'tables';
 @import 'patterns';
+
+body {
+  padding-top: 40px;
+  margin-top: 20px;
+}
+
+.topbar {
+  .account {
+    .already, .or {
+      color: $gray;
+    }
+  }
+
+  .user-actions .user .avatar {
+    margin-right: 4px;
+    vertical-align: bottom;
+  }
+}
+
+.registrations .edit {
+  #user_avatar_input {
+    label {
+      padding-top: 0;
+
+      img {
+        vertical-align: bottom;
+      }
+    }
+
+    .input .clearfix {
+      margin-bottom: 0;
+
+      .input {
+        margin-left: 0;
+
+        .inputs-list {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
