@@ -9,7 +9,7 @@ namespace :aws do
     src_bucket = "#{Settings.aws.bucket_name}-#{args.source}"
     dst_bucket = "#{Settings.aws.bucket_name}-#{args.destination}"
 
-    puts "Copying items from \"#{src_bucket}\" to \"#{dst_bucket}\"..."
+    puts "Copying keys from \"#{src_bucket}\" to \"#{dst_bucket}\"..."
 
     copied = 0
     fog.directories.get(src_bucket).files.each do |file|
@@ -18,16 +18,15 @@ namespace :aws do
         fog.head_object(dst_bucket, key)
         next
       rescue Exception => e
-        # Key does not exist
+        # Key does not exist yet! Continuing...
       end
 
-      # Copy
-      puts "Copying: #{key}"
+      puts "  ...copying \"#{key}\""
       fog.copy_object(src_bucket, key, dst_bucket, key, 'x-amz-acl' => 'public-read')
 
       copied += 1
     end
 
-    puts "Complete! #{copied} items copied to \"#{dst_bucket}\"."
+    puts "Complete! (#{copied} keys copied)"
   end
 end

@@ -7,9 +7,9 @@
 
     = stylesheet_link_tag :application
     = javascript_include_tag :application
-    = javascript_tag '$.fx.off = true;' if Rails.env.test?
     /[if lt IE 9]
       = javascript_include_tag '//html5shiv.googlecode.com/svn/trunk/html5.js'
+    = javascript_tag '$.fx.off = true;' if Rails.env.test?
 
     = csrf_meta_tags
     = favicon_link_tag

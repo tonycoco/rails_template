@@ -107,6 +107,7 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_t
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/bootstrap.js', 'app/assets/javascripts/bootstrap.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/bootstrap.css.scss', 'app/assets/stylesheets/bootstrap.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/overrides.css.scss', 'app/assets/stylesheets/overrides.css.scss'
 
 append_file 'app/assets/stylesheets/application.css' do <<-CSS
 body {
