@@ -178,6 +178,11 @@ gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
 RUBY
 end
 
+inject_into_file 'app/controllers/application_controller.rb', :after => "  protect_from_forgery\n" do <<-RUBY
+  before_filter :authenticate_user!
+RUBY
+end
+
 inject_into_file 'config/initializers/devise.rb', :after => "Devise.setup do |config|\n" do <<-RUBY
   user_permissions     = %w(user_about_me user_activities user_birthday user_checkins user_education_history user_events user_groups user_hometown user_interests user_likes user_location user_notes user_online_presence user_photo_video_tags user_photos user_questions user_relationships user_relationship_details user_religion_politics user_status user_videos user_website user_work_history email)
   friends_permissions  = %w(friends_about_me friends_activities friends_birthday friends_checkins friends_education_history friends_events friends_groups friends_hometown friends_interests friends_likes friends_location friends_notes friends_online_presence friends_photo_video_tags friends_photos friends_questions friends_relationships friends_relationship_details friends_religion_politics friends_status friends_videos friends_website friends_work_history)
@@ -241,12 +246,19 @@ end
 generate(:controller, 'welcome')
 
 inject_into_file 'app/controllers/welcome_controller.rb', :before => 'end' do <<-RUBY
-  before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!, :only => :index
+
+  def index
+    render 'dashboard' if user_signed_in?
+
+    @user = User.new
+  end
 RUBY
 end
 
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/dashboard.html.haml', 'app/views/welcome/dashboard.html.haml'
 
 #####################################################
 # Redis
