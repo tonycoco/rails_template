@@ -106,6 +106,7 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/a
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/bootstrap.js', 'app/assets/javascripts/bootstrap.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/bootstrap.css.scss', 'app/assets/stylesheets/bootstrap.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/registrations.css.scss', 'app/assets/stylesheets/registrations.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/overrides.css.scss', 'app/assets/stylesheets/overrides.css.scss'
 
@@ -259,6 +260,8 @@ end
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/dashboard.html.haml', 'app/views/welcome/dashboard.html.haml'
+remove_file 'app/assets/stylesheets/welcome.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/welcome.css.scss', 'app/assets/stylesheets/welcome.css.scss'
 
 #####################################################
 # Redis

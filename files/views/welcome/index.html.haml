@@ -6,11 +6,11 @@
         %h1 Welcome!
         %p This can be some welcome message.
       .span6
-        = twitter_bootstrap_form_for(@user, :as => :user, :url => registration_path(:user), :html => {:class => 'form-stacked'}) do |f|
+        = twitter_bootstrap_form_for(@user, :as => :user, :url => registration_path(:user), :html => {:class => 'welcome-signup well form-stacked'}) do |f|
           = f.inputs "Join #{t('application.name')} right now!", :class => 'sign-up' do
             = f.email_field :email, false, :placeholder => 'Email', :class => 'xlarge'
             = f.password_field :password, false, :placeholder => 'Password', :class => 'xlarge'
             = f.password_field :password_confirmation, false, :placeholder => 'Confirm your password', :class => 'xlarge'
             = f.actions do
-              = f.submit 'Sign up'
+              = f.submit 'Sign up', :class => 'btn primary large'
             = link_to 'Or, sign up with Facebook', omniauth_authorize_path(:user, :facebook)
