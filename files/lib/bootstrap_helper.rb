@@ -15,22 +15,22 @@ module BootstrapHelper
   def alert_css_class_for(key)
     case key.to_sym
     when :alert
-      'error'
+      'alert-error'
     when :notice
-      'success'
+      'alert-success'
     else
-      key.to_s
+      'alert-' + key.to_s
     end
   end
 
   def alert_heading_for(key)
     case key.to_sym
     when :alert
-      t('alert_message.alert')
+      t('alerts.headings.alert')
     when :notice
-      t('alert_message.notice')
+      t('alerts.headings.notice')
     else
-      t('alert_message.default')
+      t('alerts.headings.default')
     end
   end
 
@@ -43,10 +43,13 @@ module BootstrapHelper
       keys.each do |key|
         next if flash[key].blank?
 
-        message = content_tag(:p, "#{content_tag(:strong, alert_heading_for(key))} #{flash[key]}".html_safe)
-        close_button = link_to('&times;'.html_safe, '#', :class => 'close')
+        html = ''
+        html << link_to('&times;'.html_safe, '#', :class => 'close', :'data-dismiss' => 'alert')
+        html << content_tag(:strong, alert_heading_for(key))
+        html << ' '
+        html << flash[key]
 
-        return content_tag(:div, "#{close_button}#{message}".html_safe, :class => "alert-message #{alert_css_class_for(key)}", :'data-alert' => 'alert')
+        return content_tag(:div, html.html_safe, :class => "alert #{alert_css_class_for(key)}")
       end
     end
   end
@@ -54,10 +57,11 @@ module BootstrapHelper
   def alert_block_for(errors, type='error', options={})
     return '' if errors.empty?
 
-    message = content_tag(:p, "#{content_tag(:strong, alert_heading_for(type))} There's #{pluralize(errors.count, 'error')} preventing this from being saved.".html_safe)
-    errors_list = content_tag(:ul, errors.full_messages.map { |msg| content_tag(:li, msg) }.join.html_safe)
-    close_button = link_to('&times;'.html_safe, '#', :class => 'close')
+    html = ''
+    html << link_to('&times;'.html_safe, '#', :class => 'close', :'data-dismiss' => 'alert')
+    html << content_tag(:h4, "#{alert_heading_for(type)} There's #{pluralize(errors.count, 'error')} preventing this from being saved.", :class => 'alert-heading')
+    html << content_tag(:ul, errors.full_messages.map { |msg| content_tag(:li, msg) }.join.html_safe)
 
-    return content_tag(:div, "#{close_button}#{message}#{errors_list}".html_safe, :class => "alert-message block-message #{alert_css_class_for(type)}", :'data-alert' => 'alert')
+    return content_tag(:div, html.html_safe, :class => "alert alert-block #{alert_css_class_for(type)}")
   end
 end

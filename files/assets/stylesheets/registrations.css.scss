@@ -2,26 +2,6 @@
 
 .registrations {
   &.edit {
-    #user_avatar_input {
-      label {
-        padding-top: 0;
-
-        img {
-          vertical-align: bottom;
-        }
-      }
-
-      .input .clearfix {
-        margin-bottom: 0;
-
-        .input {
-          margin-left: 0;
-
-          .inputs-list {
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
+    // FIXME!
   }
 }

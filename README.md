@@ -17,3 +17,6 @@ ENV['AWS_SECRET_ACCESS_KEY']
 ```
 
 If you are customizing this template, you can use any methods provided by [Thor::Actions](http://rubydoc.info/github/wycats/thor/master/Thor/Actions) and [Rails::Generators::Actions](http://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb)
+
+## Notes
+This is not yet finished. There has been continuous development on it. A 1.0.0 release will come soon.

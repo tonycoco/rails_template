@@ -1,11 +1,11 @@
 .container
   .content
     .row
-      .span10
+      .span8
         = alert_message_for(flash)
         %h1 Welcome!
         %p This can be some welcome message.
-      .span6
+      .span4
         = twitter_bootstrap_form_for(@user, :as => :user, :url => registration_path(:user), :html => {:class => 'welcome-signup well form-stacked'}) do |f|
           = f.inputs "Join #{t('application.name')} right now!", :class => 'sign-up' do
             = f.email_field :email, false, :placeholder => 'Email', :class => 'xlarge'

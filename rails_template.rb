@@ -13,7 +13,7 @@ require 'active_support/core_ext/array/wrap'
 #####################################################
 # Gems
 #####################################################
-gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails', :git => 'git://github.com/anjlab/bootstrap-rails.git'
+gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass', :branch => '2.0'
 gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
 gem 'carrierwave'
 gem 'devise'
@@ -26,7 +26,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'resque', :require => 'resque/server'
 gem 'settingslogic'
-gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git'
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 
 gem_group :development do
   gem 'capistrano'
@@ -91,10 +91,11 @@ gsub_file 'config/locales/en.yml', /  hello: "Hello world"/ do <<-YAML
   application:
     name: "CHANGEME"
     slogan: "CHANGEME"
-  alert_message:
-    default: "Heads up!"
-    alert: "Oh snap!"
-    notice: "Well done!"
+  alerts:
+    headings:
+      default: "Heads up!"
+      alert: "Oh snap!"
+      notice: "Well done!"
 YAML
 end
 
@@ -103,12 +104,13 @@ end
 #####################################################
 remove_file 'app/views/layouts/application.html.erb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/application.html.haml', 'app/views/layouts/application.html.haml'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_topbar.html.haml', 'app/views/shared/_topbar.html.haml'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/bootstrap.js', 'app/assets/javascripts/bootstrap.js'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/bootstrap.css.scss', 'app/assets/stylesheets/bootstrap.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_navbar.html.haml', 'app/views/shared/_navbar.html.haml'
+remove_file 'app/assets/javascripts/application.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/application.js', 'app/assets/javascripts/application.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/layout.css.scss', 'app/assets/stylesheets/layout.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/registrations.css.scss', 'app/assets/stylesheets/registrations.css.scss'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/shared.css.scss', 'app/assets/stylesheets/shared.css.scss'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/overrides.css.scss', 'app/assets/stylesheets/overrides.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_shared.css.scss', 'app/assets/stylesheets/_shared.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_overrides.css.scss', 'app/assets/stylesheets/_overrides.css.scss'
 
 #####################################################
 # Heroku
@@ -161,6 +163,11 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/ava
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/avatar.png', 'app/assets/images/avatar.png'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/initializer.rb', 'config/initializers/carrierwave.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/aws.rake', 'lib/tasks/aws.rake'
+
+#####################################################
+# SimpleForm
+#####################################################
+generate 'simple_form:install --bootstrap'
 
 #####################################################
 # Devise
@@ -220,19 +227,20 @@ end
 
 get 'https://raw.github.com/tonycoco/rails_template/master/files/devise/omniauth_callbacks_controller.rb', 'app/controllers/users/omniauth_callbacks_controller.rb'
 
-inside 'app/views/devise' do
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/edit.html.haml', 'passwords/edit.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/new.html.haml', 'passwords/new.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/edit.html.haml', 'registrations/edit.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/new.html.haml', 'registrations/new.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/sessions/new.html.haml', 'sessions/new.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/shared/_links.html.haml', 'shared/_links.html.haml'
-  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/unlocks/new.html.haml', 'unlocks/new.html.haml'
-end
+generate 'devise:views' # FIXME!
+# inside 'app/views/devise' do
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/edit.html.haml', 'passwords/edit.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/new.html.haml', 'passwords/new.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/edit.html.haml', 'registrations/edit.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/new.html.haml', 'registrations/new.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/sessions/new.html.haml', 'sessions/new.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/shared/_links.html.haml', 'shared/_links.html.haml'
+#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/unlocks/new.html.haml', 'unlocks/new.html.haml'
+# end
 
 create_file 'spec/support/devise.rb' do <<-RUBY
 RSpec.configure do |config|
@@ -242,7 +250,7 @@ RUBY
 end
 
 #####################################################
-# Welcome
+# Welcome and Dashboard
 #####################################################
 generate(:controller, 'welcome')
 
@@ -250,7 +258,7 @@ inject_into_file 'app/controllers/welcome_controller.rb', :before => 'end' do <<
   skip_before_filter :authenticate_user!, :only => :index
 
   def index
-    render 'dashboard' if user_signed_in?
+    redirect_to dashboard_path if user_signed_in?
 
     @user = User.new
   end
@@ -259,9 +267,12 @@ end
 
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/dashboard.html.haml', 'app/views/welcome/dashboard.html.haml'
 remove_file 'app/assets/stylesheets/welcome.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/welcome.css.scss', 'app/assets/stylesheets/welcome.css.scss'
+
+generate(:controller, 'dashboard')
+route "match 'dashboard' => 'dashboard#index', :as => :dashboard"
+get 'https://raw.github.com/tonycoco/rails_template/master/files/views/dashboard/index.html.haml', 'app/views/dashboard/index.html.haml'
 
 #####################################################
 # Redis
@@ -302,8 +313,8 @@ capybara-*.html
 GIT
 end
 
-rake "db:migrate"
+rake 'db:migrate'
 
 git :init
 git :add => '.'
-git :commit => "-aqm 'initial commit'"
+git :commit => '-aqm "initial commit"'
