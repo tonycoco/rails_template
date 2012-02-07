@@ -13,7 +13,7 @@ require 'active_support/core_ext/array/wrap'
 #####################################################
 # Gems
 #####################################################
-gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass', :branch => '2.0'
+gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass'
 gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
 gem 'carrierwave'
 gem 'devise'
