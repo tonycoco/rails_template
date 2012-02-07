@@ -1,11 +1,12 @@
 .container
   .content
+    %h2 Resend confirmation instructions
     .row
-      .span16
-        = alert_block_for(resource.errors)
-        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
-          = f.inputs 'Resend confirmation instructions', :class => 'resend-confirmation' do
-            = f.email_field :email
-          = f.actions do
-            = f.submit 'Resend confirmation instructions'
-        = render :partial => 'devise/shared/links'
+      .span12
+        = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f|
+          = f.error_notification
+          %fieldset
+            %legend Give us your email and we'll send you those instructions again.
+            = f.input :email, :required => true
+          .form-actions
+            = f.button :submit, 'Resend confirmation instructions', :class => 'btn-primary btn-large'

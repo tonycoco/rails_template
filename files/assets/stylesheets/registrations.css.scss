@@ -1,7 +1,16 @@
 @import 'shared';
 
 .registrations {
-  &.edit {
-    // FIXME!
+  &.update {
+    form {
+      .image_preview {
+        .controls {
+          img {
+            margin-right: 8px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
   }
 }

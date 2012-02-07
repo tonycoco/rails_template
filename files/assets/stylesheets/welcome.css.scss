@@ -3,21 +3,23 @@
 .welcome {
   &.index {
     .welcome-signup {
-      fieldset {
-        padding-top: 0;
+      h2 {
+        font-size: 19px;
+        line-height: 21px;
+        margin-bottom: 18px;
+        font-weight: 400;
+      }
+
+      form {
         margin-bottom: 0;
 
-        legend {
-          padding-bottom: 18px;
-        }
-
-        .actions {
+        .form-actions {
           margin: 0;
           padding: 9px 0 0 0;
           border: none;
 
           .btn {
-            margin-bottom: 9px;
+            margin-bottom: 0;
           }
         }
       }

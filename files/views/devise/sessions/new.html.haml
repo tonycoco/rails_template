@@ -1,15 +1,21 @@
+- @switch_navbar = true # "Already have an account?" to "Don't have an account?"
+
 .container
   .content
+    = alert_message_for(flash)
+    %h2 Sign in
     .row
-      .span16
-        = alert_message_for(flash)
-        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-          = f.inputs 'Sign in', :class => 'sign-in' do
-            = f.email_field :email, :placeholder => 'me@example.com'
-            = f.password_field :password
-            - if devise_mapping.rememberable?
-              = f.toggles do
-                = f.check_box :remember_me, 'Remember?'
-          = f.actions do
-            = f.submit 'Sign in'
-        = render :partial => 'devise/shared/links'
+      .span8
+        = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f|
+          %fieldset
+            %legend Use your credentials to get your account logged in!
+            = f.input :email, :required => false, :autofocus => true
+            = f.input :password, :required => false
+            = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+            .form-actions
+              = f.button :submit, 'Sign in', :class => 'btn-primary btn-large'
+              = link_to 'Or, sign in using Facebook', omniauth_authorize_path(resource_name, :facebook)
+
+      .span4
+        %h3 Can't remember?
+        = link_to 'Yep. I forgot my password.', new_password_path(resource_name)

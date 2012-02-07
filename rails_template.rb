@@ -65,8 +65,8 @@ end
 # Bundle
 #####################################################
 run 'bundle install'
-rake "db:create"
-rake "db:migrate"
+rake 'db:create'
+rake 'db:migrate'
 
 #####################################################
 # SettingsLogic
@@ -108,7 +108,6 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_n
 remove_file 'app/assets/javascripts/application.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/application.js', 'app/assets/javascripts/application.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/layout.css.scss', 'app/assets/stylesheets/layout.css.scss'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/registrations.css.scss', 'app/assets/stylesheets/registrations.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_shared.css.scss', 'app/assets/stylesheets/_shared.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_overrides.css.scss', 'app/assets/stylesheets/_overrides.css.scss'
 
@@ -168,6 +167,7 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/carrierwave/aws
 # SimpleForm
 #####################################################
 generate 'simple_form:install --bootstrap'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/simple_form/image_preview_input.rb', 'app/inputs/image_preview_input.rb'
 
 #####################################################
 # Devise
@@ -200,7 +200,7 @@ inject_into_file 'config/initializers/devise.rb', :after => "Devise.setup do |co
 RUBY
 end
 
-gsub_file 'config/initializers/devise.rb', /please-change-me-at-config-initializers-devise@example.com/, "CHANGEME@example.com"
+gsub_file 'config/initializers/devise.rb', /please-change-me-at-config-initializers-devise@example.com/, 'CHANGEME@example.com'
 
 inject_into_file 'app/models/user.rb', :before => 'end' do <<-RUBY
   serialize :data
@@ -226,21 +226,21 @@ RUBY
 end
 
 get 'https://raw.github.com/tonycoco/rails_template/master/files/devise/omniauth_callbacks_controller.rb', 'app/controllers/users/omniauth_callbacks_controller.rb'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/registrations.css.scss', 'app/assets/stylesheets/registrations.css.scss'
 
-generate 'devise:views' # FIXME!
-# inside 'app/views/devise' do
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/edit.html.haml', 'passwords/edit.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/new.html.haml', 'passwords/new.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/edit.html.haml', 'registrations/edit.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/new.html.haml', 'registrations/new.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/sessions/new.html.haml', 'sessions/new.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/shared/_links.html.haml', 'shared/_links.html.haml'
-#   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/unlocks/new.html.haml', 'unlocks/new.html.haml'
-# end
+inside 'app/views/devise' do
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/confirmation_instructions.html.haml', 'mailer/confirmation_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/reset_password_instructions.html.haml', 'mailer/reset_password_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/mailer/unlock_instructions.html.haml', 'mailer/unlock_instructions.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/edit.html.haml', 'passwords/edit.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/passwords/new.html.haml', 'passwords/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/edit.html.haml', 'registrations/edit.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/registrations/new.html.haml', 'registrations/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/sessions/new.html.haml', 'sessions/new.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/_links.html.haml', '_links.html.haml'
+  get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/unlocks/new.html.haml', 'unlocks/new.html.haml'
+end
 
 create_file 'spec/support/devise.rb' do <<-RUBY
 RSpec.configure do |config|

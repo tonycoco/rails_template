@@ -1,24 +1,19 @@
 .container
   .content
+    %h2 Edit #{resource_name.to_s.humanize}
     .row
-      .span16
-        = alert_block_for(resource.errors)
-        = twitter_bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f|
-          = f.inputs "Edit #{resource_name.to_s.humanize}", :class => 'edit' do
-            = f.file_field :avatar, image_tag(current_user.avatar.url, :size => '50x50', :alt => 'Current avatar') do
-              = f.toggles do
-                = f.check_box :remove_avatar, 'Remove avatar'
-            = f.hidden_field :avatar_cache
-            = f.email_field :email, :placeholder => 'me@example.com'
-            = f.password_field :password do
-              %span.help-block (Leave blank if you don't want to change it.)
-            = f.password_field :password_confirmation
-            = f.password_field :current_password do
-              %span.help-block (We need your current password to confirm your changes.)
-          = f.actions do
-            = f.submit 'Update'
-
-        %p
-          Unhappy?
-          = link_to 'Cancel my account', registration_path(resource_name), :confirm => 'Are you sure?', :method => :delete
-        %p= link_to 'Back', :back
+      .span8
+        = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f|
+          = f.error_notification
+          %fieldset
+            %legend Need to change something?
+            = f.input :avatar, :as => :image_preview, :input_html => { :preview_version => :tiny }
+            = f.input :email, :required => true, :autofocus => true
+            = f.input :password, :hint => "Leave it blank if you don't want to change it.", :required => false
+            = f.input :password_confirmation, :required => false
+            = f.input :current_password, :hint => 'We need your current password to confirm your changes.', :required => true
+            .form-actions
+              = f.button :submit, 'Update', :class => 'btn-primary btn-large'
+      .span4
+        %h3 Cancel my account
+        %p Unhappy? #{link_to 'Cancel my account', registration_path(resource_name), :confirm => 'Are you sure?', :method => :delete}.

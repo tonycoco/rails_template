@@ -1,8 +1,33 @@
 @import 'overrides';
 @import 'bootstrap';
+@import 'bootstrap/responsive';
 
 body {
   padding-top: 90px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+abbr[title=required] {
+  border-bottom: none;
+  color: $errorText;
+  font-weight: bold;
 }
 
 .navbar {
@@ -13,7 +38,7 @@ body {
   }
 
   .user-actions {
-    .sign-in-link {
+    .sign-in-link, .sign-up-link {
       em {
         font-size: 10px;
         font-style: normal;
