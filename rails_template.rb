@@ -27,6 +27,7 @@ gem 'omniauth-twitter'
 gem 'resque', :require => 'resque/server'
 gem 'settingslogic'
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'cancan'
 
 gem_group :development do
   gem 'capistrano'
@@ -175,7 +176,7 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/simple_form/ima
 generate 'devise:install'
 gsub_file 'config/application.rb', /:password/, ':password, :password_confirmation'
 generate 'devise user'
-generate 'migration', 'AddExtrasToUsers admin:boolean avatar:string data:binary'
+generate 'migration', 'AddExtrasToUsers role:string avatar:string data:binary'
 gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
@@ -248,6 +249,11 @@ RSpec.configure do |config|
 end
 RUBY
 end
+
+#####################################################
+# CanCan
+#####################################################
+generate 'cancan:ability'
 
 #####################################################
 # Welcome and Dashboard
