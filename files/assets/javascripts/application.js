@@ -97,6 +97,7 @@ $(document).ready(function() {
         this.findByName(element.name).parent('div').parent('div').removeClass(errorClass).addClass(validClass);
       } else {
         $(element).parent('div').parent('div').removeClass(errorClass).addClass(validClass);
+        $(element).next('span.help-inline').text('');
       }
     }
   });
