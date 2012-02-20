@@ -8,7 +8,7 @@
       .span4
         .well.welcome-signup
           %h2 Join #{t('application.name')} right now!
-          = simple_form_for(@user, :as => :user, :url => registration_path(:user), :html => {:class => 'form-stacked'}) do |f|
+          = simple_form_for(@user, :as => :user, :url => registration_path(:user), :html => { :class => 'form-stacked' }) do |f|
             = f.email_field :email, :placeholder => 'Email', :class => 'xlarge'
             = f.password_field :password, :placeholder => 'Password', :class => 'xlarge'
             = f.password_field :password_confirmation, :placeholder => 'Confirm your password', :class => 'xlarge'

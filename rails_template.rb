@@ -111,6 +111,7 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascri
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/layout.css.scss', 'app/assets/stylesheets/layout.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_shared.css.scss', 'app/assets/stylesheets/_shared.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_overrides.css.scss', 'app/assets/stylesheets/_overrides.css.scss'
+get 'https://raw.github.com/jzaefferer/jquery-validation/master/jquery.validate.js', 'app/assets/javascripts/jquery.validate.js'
 
 #####################################################
 # Heroku
@@ -180,8 +181,10 @@ generate 'migration', 'AddExtrasToUsers role:string avatar:string data:binary'
 gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
 gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
-gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
-  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' } do
+gsub_file 'config/routes.rb', /  devise_scope :users/ do <<-RUBY
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
+
+  devise_scope :users do
     get 'users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 RUBY

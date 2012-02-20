@@ -24,6 +24,10 @@ body {
   }
 }
 
+form .alert-error {
+  margin-top: 18px;
+}
+
 abbr[title=required] {
   border-bottom: none;
   color: $errorText;
