@@ -15,6 +15,7 @@ require 'active_support/core_ext/array/wrap'
 #####################################################
 gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass'
 gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
+gem 'cancan'
 gem 'carrierwave'
 gem 'devise'
 gem 'fog'
@@ -27,7 +28,6 @@ gem 'omniauth-twitter'
 gem 'resque', :require => 'resque/server'
 gem 'settingslogic'
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
-gem 'cancan'
 
 gem_group :development do
   gem 'capistrano'
@@ -109,7 +109,6 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_n
 remove_file 'app/assets/javascripts/application.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/application.js', 'app/assets/javascripts/application.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/layout.css.scss', 'app/assets/stylesheets/layout.css.scss'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_shared.css.scss', 'app/assets/stylesheets/_shared.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_overrides.css.scss', 'app/assets/stylesheets/_overrides.css.scss'
 get 'https://raw.github.com/jzaefferer/jquery-validation/master/jquery.validate.js', 'app/assets/javascripts/jquery.validate.js'
 
@@ -230,7 +229,7 @@ RUBY
 end
 
 get 'https://raw.github.com/tonycoco/rails_template/master/files/devise/omniauth_callbacks_controller.rb', 'app/controllers/users/omniauth_callbacks_controller.rb'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/registrations.css.scss', 'app/assets/stylesheets/registrations.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_registrations.css.scss', 'app/assets/stylesheets/_registrations.css.scss'
 
 inside 'app/views/devise' do
   get 'https://raw.github.com/tonycoco/rails_template/master/files/views/devise/confirmations/new.html.haml', 'confirmations/new.html.haml'
@@ -277,7 +276,7 @@ end
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
 remove_file 'app/assets/stylesheets/welcome.css.scss'
-get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/welcome.css.scss', 'app/assets/stylesheets/welcome.css.scss'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_welcome.css.scss', 'app/assets/stylesheets/_welcome.css.scss'
 
 generate(:controller, 'dashboard')
 route "match 'dashboard' => 'dashboard#index', :as => :dashboard"
