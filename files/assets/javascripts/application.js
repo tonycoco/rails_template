@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
+//= require jquery.validate
+//= require jquery.validate.bootstrap
 
 $(document).ready(function() {
   $('form.validate').validate();

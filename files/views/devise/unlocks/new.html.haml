@@ -3,9 +3,10 @@
     %h2 Resend unlock instructions
     .row
       .span12
-        = simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+        = simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, :class => 'form-horizontal validate' }) do |f|
           = f.error_notification
-          .inputs
+          %fieldset
+            %legend What email did you sign up with?
             = f.input :email, :required => true
-          .actions
+          .form-actions
             = f.button :submit, 'Resend unlock instructions'

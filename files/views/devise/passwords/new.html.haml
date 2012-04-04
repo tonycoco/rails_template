@@ -3,7 +3,7 @@
     %h2 Forgot your password?
     .row
       .span12
-        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f|
+        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal validate' }) do |f|
           = f.error_notification
           %fieldset
             %legend Give us your email. We'll send it to you!

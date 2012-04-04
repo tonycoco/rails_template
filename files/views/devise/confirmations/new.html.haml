@@ -3,7 +3,7 @@
     %h2 Resend confirmation instructions
     .row
       .span12
-        = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f|
+        = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-horizontal validate' }) do |f|
           = f.error_notification
           %fieldset
             %legend Give us your email and we'll send you those instructions again.
