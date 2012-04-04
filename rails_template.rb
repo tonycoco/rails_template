@@ -258,7 +258,7 @@ generate 'cancan:ability'
 #####################################################
 # Welcome and Dashboard
 #####################################################
-generate(:controller, 'welcome')
+generate(:controller, 'welcome', '--skip-assets')
 
 inject_into_file 'app/controllers/welcome_controller.rb', :before => 'end' do <<-RUBY
   skip_before_filter :authenticate_user!, :only => :index
@@ -273,14 +273,10 @@ end
 
 route "root :to => 'welcome#index'"
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/welcome/index.html.haml', 'app/views/welcome/index.html.haml'
-remove_file 'app/assets/javascripts/welcome.js.coffee'
-remove_file 'app/assets/stylesheets/welcome.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_welcome.css.scss', 'app/assets/stylesheets/_welcome.css.scss'
 
-generate(:controller, 'dashboard')
+generate(:controller, 'dashboard', '--skip-assets')
 route "match 'dashboard' => 'dashboard#index', :as => :dashboard"
-remove_file 'app/assets/javascripts/dashboard.js.coffee'
-remove_file 'app/assets/stylesheets/dashboard.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/dashboard/index.html.haml', 'app/views/dashboard/index.html.haml'
 gsub_file 'app/assets/stylesheets/application.css', '*= require_tree .', '*= require layout'
 
