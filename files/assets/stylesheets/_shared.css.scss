@@ -1,0 +1,63 @@
+body {
+  padding-top: 90px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+form .alert-error {
+  margin-top: 18px;
+}
+
+abbr[title=required] {
+  border-bottom: none;
+  color: $errorText;
+  font-weight: bold;
+}
+
+.navbar {
+  .brand {
+    font-weight: bold;
+    color: $black;
+    text-shadow: 0 1px 0 rgba(255,255,255,.1);
+  }
+
+  .user-actions {
+    .sign-in-link, .sign-up-link {
+      em {
+        font-size: 10px;
+        font-style: normal;
+        margin-right: 4px;
+        line-height: 10px;
+      }
+
+      strong {
+        color: $white;
+        font-weight: bold;
+      }
+    }
+
+    .logged-in-user-toggle {
+      .avatar {
+        margin-right: 8px;
+        vertical-align: bottom;
+        float: left;
+      }
+    }
+  }
+}

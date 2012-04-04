@@ -14,7 +14,7 @@ require 'active_support/core_ext/array/wrap'
 # Gems
 #####################################################
 gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass'
-gem 'bootstrap_kaminari', :git => 'git://github.com/tonycoco/bootstrap_kaminari.git'
+gem 'bootstrap_kaminari', :git => 'git://github.com/dleavitt/bootstrap_kaminari.git'
 gem 'cancan'
 gem 'carrierwave'
 gem 'devise'
@@ -108,9 +108,11 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/views/layouts/a
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/shared/_navbar.html.haml', 'app/views/shared/_navbar.html.haml'
 remove_file 'app/assets/javascripts/application.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/application.js', 'app/assets/javascripts/application.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/jquery.validate.js', 'app/assets/javascripts/jquery.validate.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/javascripts/jquery.validate.bootstrap.js', 'app/assets/javascripts/jquery.validate.bootstrap.js'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/layout.css.scss', 'app/assets/stylesheets/layout.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_overrides.css.scss', 'app/assets/stylesheets/_overrides.css.scss'
-get 'https://raw.github.com/jzaefferer/jquery-validation/master/jquery.validate.js', 'app/assets/javascripts/jquery.validate.js'
+get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/stylesheets/_shared.css.scss', 'app/assets/stylesheets/_shared.css.scss'
 
 #####################################################
 # Heroku
@@ -276,7 +278,9 @@ get 'https://raw.github.com/tonycoco/rails_template/master/files/assets/styleshe
 
 generate(:controller, 'dashboard')
 route "match 'dashboard' => 'dashboard#index', :as => :dashboard"
+remove_file 'app/assets/stylesheets/dashboard.css.scss'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/views/dashboard/index.html.haml', 'app/views/dashboard/index.html.haml'
+gsub_file 'app/assets/stylesheets/application.css', '*= require_tree .', '*= require layout'
 
 #####################################################
 # Redis
