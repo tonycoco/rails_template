@@ -1,19 +1,19 @@
 (function() {
 
   $.validator.setDefaults({
-    errorClass: "error",
-    validClass: "success",
-    errorElement: "span",
+    errorClass: 'error',
+    validClass: 'success',
+    errorElement: 'span',
     highlight: function(element, errorClass, validClass) {
       var $obj;
       $obj = element.type === 'radio' ? this.findByName(element.name) : $(element);
-      return $obj.parents("div.control-group").removeClass(validClass).addClass(errorClass);
+      return $obj.parents('div.control-group').removeClass(validClass).addClass(errorClass);
     },
     unhighlight: function(element, errorClass, validClass) {
       var $obj;
       $obj = element.type === 'radio' ? this.findByName(element.name) : $(element);
       $obj.next('span.help-inline.' + errorClass).remove();
-      return $obj.parents("div.control-group").removeClass(errorClass).addClass(validClass);
+      return $obj.parents('div.control-group').removeClass(errorClass).addClass(validClass);
     },
     errorPlacement: function(error, element) {
       if (element.siblings().length > 0) {
