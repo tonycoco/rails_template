@@ -3,7 +3,7 @@
     .container
       = link_to t('application.name'), (user_signed_in? ? dashboard_path : root_path), :class => 'brand'
 
-      = link_to '#', :class => 'btn btn-navbar', :'data-toggle' => 'collapse', :'data-target' => '.nav-collapse' do
+      = link_to '#', :class => 'btn btn-navbar', :data => { :toggle => 'collapse', :target => '.nav-collapse' } do
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
@@ -12,7 +12,7 @@
         %ul.nav.user-actions.pull-right
           - if user_signed_in?
             %li.dropdown
-              = link_to '#', :class => 'dropdown-toggle logged-in-user-toggle', :'data-toggle' => 'dropdown' do
+              = link_to '#', :class => 'dropdown-toggle logged-in-user-toggle', :data => { :toggle => 'dropdown' } do
                 = image_tag current_user.avatar.tiny.url, :alt => current_user.email, :size => '20x20', :class => 'avatar'
                 = current_user.email
                 %b.caret

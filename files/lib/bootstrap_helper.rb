@@ -44,7 +44,7 @@ module BootstrapHelper
         next if flash[key].blank?
 
         html = ''
-        html << link_to('&times;'.html_safe, '#', :class => 'close', :'data-dismiss' => 'alert')
+        html << link_to('&times;'.html_safe, '#', :class => 'close', :data => { :dismiss => 'alert' })
         html << content_tag(:strong, alert_heading_for(key))
         html << ' '
         html << flash[key]
@@ -58,7 +58,7 @@ module BootstrapHelper
     return '' if errors.empty?
 
     html = ''
-    html << link_to('&times;'.html_safe, '#', :class => 'close', :'data-dismiss' => 'alert')
+    html << link_to('&times;'.html_safe, '#', :class => 'close', :data => { :dismiss => 'alert' })
     html << content_tag(:h4, "#{alert_heading_for(type)} There's #{pluralize(errors.count, 'error')} preventing this from being saved.", :class => 'alert-heading')
     html << content_tag(:ul, errors.full_messages.map { |msg| content_tag(:li, msg) }.join.html_safe)
 
