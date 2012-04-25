@@ -12,11 +12,10 @@
     unhighlight: function(element, errorClass, validClass) {
       var $obj;
       $obj = element.type === 'radio' ? this.findByName(element.name) : $(element);
-      $obj.next('span.help-inline.' + errorClass).remove();
       return $obj.parents('div.control-group').removeClass(errorClass).addClass(validClass);
     },
     errorPlacement: function(error, element) {
-      if (element.siblings().length > 0) {
+      if (element.siblings('.help-inline').length > 0) {
         error.insertAfter(element.siblings(':last'));
       } else {
         error.insertAfter(element);
