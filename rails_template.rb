@@ -13,21 +13,21 @@ require 'active_support/core_ext/array/wrap'
 #####################################################
 # Gems
 #####################################################
-gem 'bootstrap-sass', :git => 'git://github.com/thomas-mcdonald/bootstrap-sass'
+gem 'bootstrap-sass'
 gem 'bootstrap_kaminari', :git => 'git://github.com/dleavitt/bootstrap_kaminari.git'
 gem 'cancan'
 gem 'carrierwave'
 gem 'devise'
 gem 'fog'
 gem 'haml-rails'
-gem 'kaminari', :git => 'git://github.com/amatsuda/kaminari.git'
+gem 'kaminari'
 gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'resque', :require => 'resque/server'
 gem 'settingslogic'
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form'
 
 gem_group :development do
   gem 'capistrano'

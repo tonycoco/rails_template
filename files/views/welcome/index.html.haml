@@ -14,4 +14,6 @@
             = f.input :password_confirmation, :label => false, :placeholder => 'Confirm your password', :required => true
             .form-actions
               = f.button :submit, 'Sign up', :class => 'btn-primary btn-large'
-              = link_to 'Or, sign up with Facebook', omniauth_authorize_path(:user, :facebook)
+              - if Devise.mappings[:user].omniauthable?
+                Or, sign up using
+                = User.omniauth_providers.collect { |provider| link_to(provider.to_s.titleize, omniauth_authorize_path(:user, provider)) }.to_sentence
