@@ -181,7 +181,7 @@ gsub_file 'config/application.rb', /:password/, ':password, :password_confirmati
 generate 'devise user'
 generate 'migration', 'AddExtrasToUsers role:string avatar:string data:binary'
 gsub_file 'app/models/user.rb', /:validatable/, ':validatable, :omniauthable'
-gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :admin, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
+gsub_file 'app/models/user.rb', /:remember_me/, ':remember_me, :role, :data, :avatar, :avatar_cache, :remove_avatar, :remote_avatar_url'
 
 gsub_file 'config/routes.rb', /  devise_for :users/ do <<-RUBY
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
