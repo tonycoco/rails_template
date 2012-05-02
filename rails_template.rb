@@ -138,6 +138,7 @@ end
 
 inject_into_file 'spec/spec_helper.rb', :before => 'end' do <<-RUBY
   require 'database_cleaner'
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
@@ -204,24 +205,35 @@ end
 gsub_file 'config/initializers/devise.rb', /please-change-me-at-config-initializers-devise@example.com/, 'CHANGEME@example.com'
 
 inject_into_file 'app/models/user.rb', :before => 'end' do <<-RUBY
+
   serialize :data
 
   mount_uploader :avatar, AvatarUploader
 
-  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    if user = User.where(:email => access_token.info.email).first
-      user
-    else
-      User.create!(:email => access_token.info.email, :password => Devise.friendly_token[0, 20], :remote_avatar_url => access_token.info.image, :data => access_token.to_hash)
+  after_create :user_created
+
+  class << self
+    def find_for_facebook_oauth(access_token, signed_in_resource=nil)
+      if user = User.where(:email => access_token.info.email).first
+        user
+      else
+        User.create!(:email => access_token.info.email, :password => Devise.friendly_token[0, 20], :data => { :facebook => access_token })
+      end
+    end
+
+    def new_with_session(params, session)
+      super.tap do |user|
+        if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
+          user.email = data['email']
+        end
+      end
     end
   end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        user.email = data['email']
-      end
-    end
+  protected
+
+  def user_created
+    Resque.enqueue(UserWorker, :save_avatar, 'user_id' => id)
   end
 RUBY
 end
@@ -284,7 +296,13 @@ gsub_file 'app/assets/stylesheets/application.css', '*= require_tree .', '*= req
 # Redis
 #####################################################
 route "mount Resque::Server.new, :at => '/resque'"
-get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/task.rake', 'lib/tasks/resque.rb'
+
+append_file 'Rakefile' do <<-RUBY
+require 'resque/tasks'
+RUBY
+end
+
+get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/user_worker.rb', 'app/workers/user_worker.rb'
 get 'https://raw.github.com/tonycoco/rails_template/master/files/resque/initializer.rb', 'config/initializers/resque.rb'
 
 #####################################################

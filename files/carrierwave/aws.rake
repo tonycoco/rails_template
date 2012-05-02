@@ -17,7 +17,7 @@ namespace :aws do
       begin
         fog.head_object(dst_bucket, key)
         next
-      rescue Exception => e
+      rescue
         # Key does not exist yet! Continuing...
       end
 
