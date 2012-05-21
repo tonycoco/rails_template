@@ -31,17 +31,9 @@ gem 'simple_form'
 
 gem_group :development do
   gem 'capistrano'
+  gem 'debugger'
   gem 'foreman'
-  gem 'rails-footnotes'
-  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'taps'
-
-  # For IRB
-  gem 'added_methods'
-  gem 'awesome_print'
-  gem 'brice'
-  gem 'looksee'
-  gem 'what_methods'
 end
 
 gem_group :development, :test do
