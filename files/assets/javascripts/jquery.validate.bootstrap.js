@@ -1,5 +1,4 @@
-(function() {
-
+(function($) {
   $.validator.setDefaults({
     errorClass: 'error',
     validClass: 'success',
@@ -57,16 +56,20 @@
   $.validator.prototype.showLabel = function(element, message) {
     var label;
     label = this.errorsFor(element);
+
     if (label.length === 0) {
       var railsGenerated = $(element).next('span.help-inline');
+
       if (railsGenerated.length) {
         railsGenerated.attr({
           'for': this.idOrName(element),
           'generated': 'true'
         });
+
         label = railsGenerated;
       }
     }
+
     if (label.length) {
       label.removeClass(this.settings.validClass).addClass(this.settings.errorClass);
       label.attr('generated') && label.html(message);
@@ -75,9 +78,11 @@
         'for': this.idOrName(element),
         'generated': true
       }).addClass(this.settings.errorClass).html(message || '').addClass('help-inline');
+
       if (this.settings.wrapper) {
         label = label.hide().show().wrap('<' + this.settings.wrapper + '/>').parent();
       }
+
       if (!this.labelContainer.append(label).length) {
         if (this.settings.errorPlacement) {
           this.settings.errorPlacement(label, $(element));
@@ -86,8 +91,10 @@
         }
       }
     }
+
     if (!message && this.settings.success) {
       label.text('');
+
       if (typeof this.settings.success === 'string') {
         label.addClass(this.settings.success);
       } else {
@@ -96,5 +103,4 @@
     }
     return this.toShow = this.toShow.add(label);
   };
-
-}).call(this);
+})(jQuery);

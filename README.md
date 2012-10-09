@@ -12,21 +12,23 @@ rails new APP_NAME -T -d mysql -m https://github.com/tonycoco/rails_template/raw
 
 ## Customization
 
-Look for all instances of the string "CHANGEME" in the generated application and make sure you have the following setup on your system...
+Look for all instances of ```CHANGEME``` in the generated application and make sure you have these environment variables...
 
 ```
-ENV['FACEBOOK_APP_ID']
-ENV['FACEBOOK_APP_SECRET']
-ENV['AWS_ACCESS_KEY_ID']
-ENV['AWS_SECRET_ACCESS_KEY']
+FACEBOOK_APP_ID
+FACEBOOK_APP_SECRET
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
 ```
+
+*Note: If you're using rbenv, check out [rbenv-vars](http://github.com/sstephenson/rbenv-vars.git).*
 
 If you are customizing this template, you can use any methods provided by [Thor::Actions](http://rubydoc.info/github/wycats/thor/master/Thor/Actions) and [Rails::Generators::Actions](http://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb)
 
 
 ## Workers
 
-To start the UserWorker...
+To start the ```UserWorker``` use the ```foreman``` gem...
 
 ```
 bundle exec foreman start worker
