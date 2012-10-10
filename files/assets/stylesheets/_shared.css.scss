@@ -1,22 +1,8 @@
 body {
-  padding-top: 90px;
-}
+  padding-top: 0;
 
-@media (max-width: 480px) {
-  body {
-    padding-top: 70px;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    padding-top: 0;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 980px) {
-  body {
-    padding-top: 0;
+  @media (min-width: 980px) {
+    padding-top: 90px;
   }
 }
 
@@ -34,11 +20,17 @@ abbr[title=required] {
   .brand {
     font-weight: bold;
     color: $black;
-    text-shadow: 0 1px 0 rgba(255,255,255,.1);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.1);
+
+    &:hover {
+      color: lighten($black, 5%);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.15);
+    }
   }
 
   .user-actions {
-    .sign-in-link, .sign-up-link {
+    .sign-in-link,
+    .sign-up-link {
       em {
         font-size: 10px;
         font-style: normal;
@@ -49,6 +41,16 @@ abbr[title=required] {
       strong {
         color: $white;
         font-weight: bold;
+      }
+
+      &:hover {
+        em {
+          color: $grayLight;
+        }
+
+        strong {
+          color: $blue;
+        }
       }
     }
 
